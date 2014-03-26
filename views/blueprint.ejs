@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>BLUEPRINT</title>
+	<link rel='stylesheet' href='/stylesheets/blueprint.css' />
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script src="/javascripts/jquery.js"></script>
+</head>
+<body>
+<div class="modal fade bs-example-modal-md" tabindex="-1" role="dialog" aria-labelledby="myMediumModalLabel" aria-hidden="true" id="welcome" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+		<h2>Welcome to literat.im!</h2>
+		<h4>Let's get started</h4>
+		<p class="welcome_info">
+			<span class="glyphicon glyphicon-search"></span>
+			<input type="text" name="room" id="room" placeholder="Search or create a room" autofocus required>
+		</p>
+		<p class="welcome_info">
+			<span class="glyphicon glyphicon-user"></span>
+			<input type="text" name="user" id="user" placeholder="Enter Name"/ required>
+			<span class="glyphicon glyphicon-ok"></span>
+		</p>
+		<button class="btn btn-info" id="start" data-dismiss="modal" data-backdrop="false">Start</button>
+    </div> <!-- end of modal-content-->
+  </div> <!-- end of modal-dialog modal-lg-->
+</div> <!-- end of modal -->
+<header>
+	<span class="glyphicon glyphicon-chevron-up"></span>
+</header>
+<div id="min_top"><span class="glyphicon glyphicon-chevron-down top"></span></div>
+<div class="container-fluid" id="container">
+	<div class="row" id="main_row">
+		<div class="col-xs-12 col-sm-8 col-md-10" id="main">
+			
+		</div> <!-- end of main div -->
+		<div class="col-xs-12 col-sm-4 col-md-2" id="names">
+			<p class="name">
+				<span class="glyphicon glyphicon-pencil">
+				</span>
+				tonez bonez jonez whisky romeo
+			</p>
+			<p class="name">
+				<span class="glyphicon glyphicon-pencil">
+				</span>
+				tonez bonez jonez whisky romeo
+			</p>
+			<p class="name">
+				<span class="glyphicon glyphicon-pencil">
+				</span>
+				tonez bonez jonez whisky romeo
+			</p>
+		</div> <!-- end of names -->
+	</div> <!-- end of first row -->
+</div> <!-- end of container div -->
+</body>
+</html>

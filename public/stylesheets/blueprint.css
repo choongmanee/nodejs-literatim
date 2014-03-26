@@ -1,0 +1,79 @@
+div {
+	border: 1px solid black;
+}
+
+h2, h4 {
+	text-align: center; 
+}
+
+input[type="text"] {
+	border: none;
+	width: 91%;
+	font-size: 18px;
+}
+
+input[type="text"]:focus {
+	outline: none;
+}
+
+.modal-content {
+	padding: 15px;
+}
+
+#container {
+	height: 1000px;
+}
+
+.glyphicon {
+	font-size: 18px;
+}
+
+.glyphicon-ok {
+	color: green;
+}
+
+#start {
+	width: 30%;
+	font-weight: bold;
+}
+
+#main_row {
+	height: 100%;
+}
+
+#main  {
+	height: 100%;
+	display: inline-block;
+	background-color: green;
+}
+
+/*.name {
+	white-space: nowrap;
+	max-width: 150px;
+}*/
+
+#names {
+	height: 100%;
+}
+
+#min_top {
+	text-align: center;
+}
+
+.arrow_down {
+	width: 0px;
+	height: 10px;
+	border-left: 25px solid transparent;
+	border-right: 25px solid transparent;
+	border-top: 25px solid red;
+	margin: auto;
+}
+
+header {
+	height: 70px;
+	background-color: green;
+}
+
+html {
+	overflow-y: hidden;
+}

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script>
+
+    io = io.connect();
+    var name = prompt('what is your name?');
+    console.log(name+" testing name");
+
+    io.emit(
+        'got_a_new_user',
+        {name: name}
+    );
+
+    io.on(
+    	'setup_user',
+    	function(data) {
+    		console.log(data.name);
+    		$('#container').append(
+    			'<div class="chat" id="'+data.name+'">\
+    			<span>'+data.name.replace("_"," ")+' has joined the room.</span>\
+    			<textarea name="message" id="message" onkeyup="send_message()"></textarea>\
+    			</div>')
+    	}
+    )
+
+    io.on(
+    	'new_user',
+    	function(data) {
+    		console.log(data.name);
+    		$.each(data.name,function(i,name){
+	    		$('#container').append(
+	    			'<div class="chat">\
+	    			<span>'+name.replace("_"," ")+' is here.</span>\
+	    			<div id="'+name+'"></div>\
+	    			</div>')
+    		})
+    	}
+    )
+
+    io.on(
+    	'newest_user',
+    	function(data) {
+    		console.log(data.name);
+    		$('#container').append(
+    			'<div class="chat">\
+    			<span>'+data.name.replace("_"," ")+' has joined the room.</span>\
+    			<div id="'+data.name+'"></div>\
+    			</div>')
+    	}
+    )
+
+    function send_message(){
+    	io.emit(
+    		'updated_text',
+    		{message: $('#message').val()}
+    	);
+    }
+
+    io.on(
+    	'text_update',
+    	function(data){
+    		console.log('i have a problem with ',data.text);
+    		$("#"+data.name+"").text(data.text);
+        }
+    );
+
+    io.on(
+        'remove_user',
+        function(data){
+            console.log(data.name,"has left the chat");
+            $("#"+data.name+"").parent().remove();
+        }
+    );
+    </script>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+	<div id="container">
+		
+	</div>
+  </body>
+</html>
