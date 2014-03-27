@@ -13,5 +13,5 @@ app.configure(function(){
 });
 
 var route = require('./routes/index.js')(app);
-app.listen(5000);
+app.listen(process.env.PORT || 5000);
 console.log("PORT NUMBER: 5000");
