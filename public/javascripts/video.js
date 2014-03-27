@@ -1,24 +1,14 @@
-///// VARIABLES /////
-
-//declare the following variables
 var localStream, localPeerConnection, remotePeerConnection;
 
-//store localVideo into the object represented by 'localVideo'
 var localVideo = document.getElementById("localVideo");
-//store remoteVideo into the object represented by 'remoteVideo'
 var remoteVideo = document.getElementById("remoteVideo");
 
 var startButton = document.getElementById("startButton");
 var callButton = document.getElementById("callButton");
 var hangupButton = document.getElementById("hangupButton");
-///// END OF VARIABLES /////
 startButton.disabled = false;
 callButton.disabled = true;
 hangupButton.disabled = true;
-
-///// FUNCTIONS /////
-
-//assign an event to a function
 startButton.onclick = start;
 callButton.onclick = call;
 hangupButton.onclick = hangup;
@@ -37,10 +27,7 @@ function gotStream(stream){
 function start() {
   trace("Requesting local stream");
   startButton.disabled = true;
-  getUserMedia({
- // audio:true,
-  	video:true}, 
-	gotStream,
+  getUserMedia({audio:true, video:true}, gotStream,
     function(error) {
       trace("getUserMedia error: ", error);
     });
