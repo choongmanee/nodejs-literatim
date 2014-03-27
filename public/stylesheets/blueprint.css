@@ -81,3 +81,11 @@ video, canvas {
 .name {
 	width: 88%;
 }
+
+#top {
+	height: 70%;
+}
+
+#bottom {
+	height: 30%;
+}

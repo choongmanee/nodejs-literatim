@@ -78,27 +78,18 @@
 </header>
 <div class='nav_slide'><span class="glyphicon glyphicon-chevron-down" id="nav_down"></span></div>
 <div class="container-fluid" id="container">
-	<div class="row" id="main_row">
-		<div class="col-xs-12 col-sm-8 col-md-8" id="main">
-    </div> <!-- end of main div -->
-    <div class="col-xs-6 col-sm-2 col-md-2" id="sidebar">
-      <div id="side_top">
-        <video id="localVideo" autoplay muted></video>
-        <video id="remoteVideo" autoplay muted></video>
-        <div>
-          <button id="startButton" class="btn btn-primary">Start</button>
-          <button id="callButton" class="btn btn-success">Call</button>
-          <button id="hangupButton" class="btn btn-danger">Hang Up</button>
-        </div>
-      <div id="side_bottom">
-        <canvas>
-        </canvas>
-      </div>
-			</div> <!-- end of sidebar div -->
-		</div> <!-- end of main div -->
-		<div class="col-xs-6 col-sm-2 col-md-2" id="names">
-		</div> <!-- end of names -->
-	</div> <!-- end of first row -->
+	<div class="row" id="container_row">
+    <div class="row" id="top">
+  		<div class="col-xs-12 col-sm-6 col-md-6" id="main">
+      </div> <!-- end of main div -->
+      <div class="col-xs-12 col-sm-6 col-md-6" id="users">
+  		</div> <!-- end of users div -->
+    </div>
+    <div class="row" id="bottom">
+      <div class="col-xs-12 col-sm-12 col-md-12" id="chat">
+      </div> <!-- end of chat -->
+    </div>
+	</div> <!-- end of container_row div -->
 </div> <!-- end of container div -->
 <script src="/javascripts/video.js"></script>
 

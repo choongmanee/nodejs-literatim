@@ -1,5 +1,9 @@
 $(document).ready(function(){
 
+$('.container-fluid').css('height',window.innerHeight);
+$('.container-fluid').resize(function(){
+	$(this).css('height',window.innerHeight);
+});
 /////////////////
 ///// MODAL /////
 /////////////////
