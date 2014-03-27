@@ -76,6 +76,11 @@ header {
 video, canvas {
 	width: 100% !important;
 	height: auto !important;
+	border: 1px solid black;
+}
+
+.user {
+	text-align: center;
 }
 
 .name {

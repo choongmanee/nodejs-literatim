@@ -20,16 +20,21 @@ var welcome = function() {
 io.on(
     'setup_new_user',
     function(data) {
+
+        // set up input text box for chat
         console.log('set_up_user:',data.name);
-		$('#names').append(
-            '<input type="text" class="name" id="'+data.name+'" onkeyup="send_message('+data.name+')"/>\
+		$('#chat').append(
+            '<input type="text" class="name" id="'+data.name+'" onchange="send_message('+data.name+')"/>\
             <span class="glyphicon glyphicon-pencil"></span>'
         );
 
+        // show all users
         $.each(data.names,function(i,name){
-            $('#names').append(
-                '<p id="'+name+'" data-toggle="tooltip" data-placement="left" title=""><span class="glyphicon glyphicon-pencil"></span>\
-                <span>'+name.replace("_"," ")+'</span></p>'
+            $('#users').append(
+                '<div class="col-xs-12 col-sm-6 col-md-6 user">\
+                    <span>'+name.replace("_"," ")+'</span></br>\
+                    <video autoplay></video>\
+                </div>'
             );
         });
 
@@ -41,9 +46,11 @@ io.on(
 	'add_newest_user',
 	function(data) {
 		console.log(data.name);
-		$('#names').append(
-			'<p id="'+data.name+'" data-toggle="tooltip" data-placement="left" title=""><span class="glyphicon glyphicon-pencil"></span>\
-            <span>'+data.name.replace("_"," ")+'</span></p>'
+		$('#users').append(
+			'<div class="col-xs-12 col-sm-6 col-md-6 user">\
+                <span>'+data.name.replace("_"," ")+'</span></br>\
+                <video autoplay></video>\
+            </div>'
         );
 	}
 );

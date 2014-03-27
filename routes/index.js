@@ -5,11 +5,6 @@ module.exports = function Routes (app) {
 			{title: 'literat.im'}
 		);
 	});
-	// app.get('/2',function(req,res){
-	// 	res.render(
-	// 		'index2'
-	// 	);
-	// });
 
 var users = [];
 var rooms = [];
@@ -21,11 +16,11 @@ var rooms = [];
 			var room = req.data.room;
 			req.session.room = room;
 			req.io.join(room);
-			console.log('number of users:');
-			console.log(app.io.room(room).socket.manager.connected);
 			var name = req.data.name.replace(" ","_");
 			req.session.name = name;
-			
+			users.push(name);
+			console.log('USERS:',users);
+
 			req.io.emit(
 				'setup_new_user',
 				{names: users,
@@ -33,8 +28,6 @@ var rooms = [];
 				name: name}
 			);
 
-			users.push(name);
-			// console.log('USERS:',users);
 
 			req.io.room(room).broadcast(
 				'add_newest_user',
