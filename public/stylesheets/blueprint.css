@@ -6,13 +6,13 @@ h2, h4 {
 	text-align: center; 
 }
 
-input[type="text"] {
+#room, #user {
 	border: none;
 	width: 91%;
 	font-size: 18px;
 }
 
-input[type="text"]:focus {
+#room:focus, #user:focus {
 	outline: none;
 }
 
@@ -44,20 +44,10 @@ input[type="text"]:focus {
 #main  {
 	height: 100%;
 	display: inline-block;
-	background-color: green;
 }
-
-/*.name {
-	white-space: nowrap;
-	max-width: 150px;
-}*/
 
 #names {
 	height: 100%;
-}
-
-#min_top {
-	text-align: center;
 }
 
 .arrow_down {
@@ -71,9 +61,23 @@ input[type="text"]:focus {
 
 header {
 	height: 70px;
-	background-color: green;
 }
 
-html {
-	overflow-y: hidden;
+.nav_slide  {
+	text-align: center;
+}
+
+#side_top,#side_bottom {
+	display: block;
+	width: 100% !important;
+	min-height: 100px;
+}
+
+video, canvas {
+	width: 100% !important;
+	height: auto !important;
+}
+
+.name {
+	width: 88%;
 }

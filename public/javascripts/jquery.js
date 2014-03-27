@@ -8,12 +8,14 @@ $(document).ready(function(){
 $('#welcome').modal('show');
 
 // hides the modal using the enter key
-document.onkeydown=function(){
-	if (event.keyCode==13) {
+$('.modal-content').keydown(function(e){
+	if (e.which==13) {
 		// console.log('enter key was pressed');
 		$('#welcome').modal('hide');
+		//client_events.js
+		welcome();
 	}
-};
+});
 
 ///// END OF MODAL /////
 
@@ -22,18 +24,18 @@ document.onkeydown=function(){
 ///////////////////
 
 $('header').hide();
-$('#min_top').click(function(){
+$('#nav_down').click(function(){
 	$(this).hide();
 	$('header').slideDown();
 });
 
-$('header').hover(function(){
-
-}, function(){
-	$(this).slideUp('fast');
-	$('#min_top').slideDown();
+$('#nav_up').click(function(){
+	$('header').slideUp('fast');
+	$('#nav_down').slideDown('slow');
 });
 
-///// END OF NAV BAR////
+///// END OF NAV BAR ////
+
+
 });
 

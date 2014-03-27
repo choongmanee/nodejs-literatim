@@ -1,89 +1,106 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-    <script>
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title><%=:title%></title>
+  <link rel='stylesheet' href='/stylesheets/blueprint.css' />
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+  <script src="/javascripts/jquery.js"></script>
+  <script src='/javascripts/adapter.js'></script>
+  <script src="/javascripts/jquery.event.drag-2.0.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src='/javascripts/client_events.js'></script>
+  <script>
+    App = {}
+    App.socket = io
 
-    io = io.connect();
-    var name = prompt('what is your name?');
-    console.log(name+" testing name");
-
-    io.emit(
-        'got_a_new_user',
-        {name: name}
-    );
-
-    io.on(
-    	'setup_user',
-    	function(data) {
-    		console.log(data.name);
-    		$('#container').append(
-    			'<div class="chat" id="'+data.name+'">\
-    			<span>'+data.name.replace("_"," ")+' has joined the room.</span>\
-    			<textarea name="message" id="message" onkeyup="send_message()"></textarea>\
-    			</div>')
-    	}
-    )
-
-    io.on(
-    	'new_user',
-    	function(data) {
-    		console.log(data.name);
-    		$.each(data.name,function(i,name){
-	    		$('#container').append(
-	    			'<div class="chat">\
-	    			<span>'+name.replace("_"," ")+' is here.</span>\
-	    			<div id="'+name+'"></div>\
-	    			</div>')
-    		})
-    	}
-    )
-
-    io.on(
-    	'newest_user',
-    	function(data) {
-    		console.log(data.name);
-    		$('#container').append(
-    			'<div class="chat">\
-    			<span>'+data.name.replace("_"," ")+' has joined the room.</span>\
-    			<div id="'+data.name+'"></div>\
-    			</div>')
-    	}
-    )
-
-    function send_message(){
-    	io.emit(
-    		'updated_text',
-    		{message: $('#message').val()}
-    	);
+    // Draw Function
+    App.draw = function(data) {
+        if (data.type == "dragstart") {
+            App.ctx.beginPath()
+            App.ctx.moveTo(data.x,data.y)
+        } else if (data.type == "drag") {
+            App.ctx.lineTo(data.x,data.y)
+            App.ctx.stroke()
+        } else {
+            App.ctx.stroke()
+            App.ctx.closePath()
+        }
     }
 
-    io.on(
-    	'text_update',
-    	function(data){
-    		console.log('i have a problem with ',data.text);
-    		$("#"+data.name+"").text(data.text);
-        }
-    );
+    // Draw from other sockets
+    App.socket.on('draw', App.draw) 
 
-    io.on(
-        'remove_user',
-        function(data){
-            console.log(data.name,"has left the chat");
-            $("#"+data.name+"").parent().remove();
-        }
-    );
-    </script>
-  </head>
-  <body>
-    <h1><%= title %></h1>
-	<div id="container">
-		
+    // Bind click and drag events to drawing and sockets.
+    $(function() {
+        App.ctx = $('canvas')[0].getContext("2d")
+        $('canvas').on('drag dragstart dragend', function(e) {
+            offset = $(this).offset()
+            data = {
+                x: (e.clientX - offset.left), 
+                y: (e.clientY - offset.top),
+                type: e.handleObj.type
+            }
+            App.draw(data) // Draw yourself.
+            App.socket.emit('drawClick', data) // Broadcast draw.
+        })
+    })         
+  </script>
+</head>
+<body>
+<div class="modal fade bs-example-modal-md" tabindex="-1" role="dialog" aria-labelledby="myMediumModalLabel" aria-hidden="true" id="welcome" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+		<h2>Welcome to literat.im!</h2>
+		<h4>Let's get started</h4>
+		<p class="welcome_info">
+			<span class="glyphicon glyphicon-search"></span>
+			<input type="text" name="room" id="room" placeholder="Search or create a room" autofocus required>
+		</p>
+		<p class="welcome_info">
+			<span class="glyphicon glyphicon-user"></span>
+			<input type="text" name="user" id="user" placeholder="Enter Name"/ required>
+			<span class="glyphicon glyphicon-ok"></span>
+		</p>
+		<button class="btn btn-info" id="start" data-dismiss="modal" data-backdrop="false" onclick="welcome()">Start</button>
+    </div> <!-- end of modal-content-->
+  </div> <!-- end of modal-dialog modal-lg-->
+</div> <!-- end of modal -->
+<header>
+	<div id="header_top"></div>
+	<div class="nav_slide">
+		<span class="glyphicon glyphicon-chevron-up" id="nav_up"></span>
 	</div>
-  </body>
+</header>
+<div class='nav_slide'><span class="glyphicon glyphicon-chevron-down" id="nav_down"></span></div>
+<div class="container-fluid" id="container">
+	<div class="row" id="main_row">
+		<div class="col-xs-12 col-sm-8 col-md-8" id="main">
+    </div> <!-- end of main div -->
+    <div class="col-xs-6 col-sm-2 col-md-2" id="sidebar">
+      <div id="side_top">
+        <video id="localVideo" autoplay muted></video>
+        <video id="remoteVideo" autoplay muted></video>
+        <div>
+          <button id="startButton" class="btn btn-primary">Start</button>
+          <button id="callButton" class="btn btn-success">Call</button>
+          <button id="hangupButton" class="btn btn-danger">Hang Up</button>
+        </div>
+      <div id="side_bottom">
+        <canvas>
+        </canvas>
+      </div>
+			</div> <!-- end of sidebar div -->
+		</div> <!-- end of main div -->
+		<div class="col-xs-6 col-sm-2 col-md-2" id="names">
+		</div> <!-- end of names -->
+	</div> <!-- end of first row -->
+</div> <!-- end of container div -->
+<script src="/javascripts/video.js"></script>
+
+</body>
 </html>
