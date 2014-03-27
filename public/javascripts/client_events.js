@@ -59,14 +59,18 @@ function send_message(name){
     var id = name.id;
     $('#'+id).keydown(function(e){
         if (e.which == 13) {
+            io.emit(
+                'updated_text',
+                {message: $('#'+id).val()}
+            );
             $(this).val('');
         }
     });
-    var message = $('#'+id).val();
-    io.emit(
-        'updated_text',
-        {message: $('#'+id).val()}
-    );
+    // var message = $('#'+id).val();
+    // io.emit(
+    //     'updated_text',
+    //     {message: $('#'+id).val()}
+    // );
     // console.log('send_message[name]:',name.id);
     // console.log('the id is:', id);
     // console.log('this is the message:',message);
