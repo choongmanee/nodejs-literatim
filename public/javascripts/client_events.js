@@ -22,7 +22,7 @@ io.on(
     function(data) {
         console.log('set_up_user:',data.name);
 		$('#names').append(
-            '<input type="text" class="name" id="'+data.name+'" onkeyup="send_message('+data.name+')"/>\
+            '<input type="text" class="name" id="'+data.name+'" onchange="send_message('+data.name+')"/>\
             <span class="glyphicon glyphicon-pencil"></span>'
         );
 
@@ -52,14 +52,18 @@ function send_message(name){
     var id = name.id;
     $('#'+id).keydown(function(e){
         if (e.which == 13) {
+            io.emit(
+                'updated_text',
+                {message: $('#'+id).val()}
+            );
             $(this).val('');
         }
     });
-    var message = $('#'+id).val();
-    io.emit(
-        'updated_text',
-        {message: $('#'+id).val()}
-    );
+    // var message = $('#'+id).val();
+    // io.emit(
+    //     'updated_text',
+    //     {message: $('#'+id).val()}
+    // );
     // console.log('send_message[name]:',name.id);
     // console.log('the id is:', id);
     // console.log('this is the message:',message);

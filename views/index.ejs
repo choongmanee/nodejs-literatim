@@ -55,34 +55,59 @@
 <div class="modal fade bs-example-modal-md" tabindex="-1" role="dialog" aria-labelledby="myMediumModalLabel" aria-hidden="true" id="welcome" data-backdrop="static" data-keyboard="false">
   <div class="modal-dialog modal-md">
     <div class="modal-content">
-		<h2>Welcome to literat.im!</h2>
-		<h4>Let's get started</h4>
-		<p class="welcome_info">
-			<span class="glyphicon glyphicon-search"></span>
-			<input type="text" name="room" id="room" placeholder="Search or create a room" autofocus required>
-		</p>
-		<p class="welcome_info">
-			<span class="glyphicon glyphicon-user"></span>
-			<input type="text" name="user" id="user" placeholder="Enter Name"/ required>
-			<span class="glyphicon glyphicon-ok"></span>
-		</p>
-		<button class="btn btn-info" id="start" data-dismiss="modal" data-backdrop="false" onclick="welcome()">Start</button>
+  		<h2>Welcome to literat.im!</h2>
+  		<h4>Let's get started</h4>
+		  <p class="welcome_info">
+  			<span class="glyphicon glyphicon-search"></span>
+  			<input type="text" name="room" id="room" placeholder="Search or create a room" autofocus required>
+		  </p>
+  		<p class="welcome_info">
+  			<span class="glyphicon glyphicon-user"></span>
+  			<input type="text" name="user" id="user" placeholder="Enter Name"/ required>
+  			<span class="glyphicon glyphicon-ok"></span>
+  		</p>
+  		<button class="btn btn-info" id="start" data-dismiss="modal" data-backdrop="false" onclick="welcome()">Start</button>
     </div> <!-- end of modal-content-->
   </div> <!-- end of modal-dialog modal-lg-->
 </div> <!-- end of modal -->
+
 <header>
 	<div id="header_top"></div>
-	<div class="nav_slide">
-		<span class="glyphicon glyphicon-chevron-up" id="nav_up"></span>
-	</div>
+  	<div class="nav_slide">
+  		<span class="glyphicon glyphicon-chevron-up" id="nav_up"></span>
+  	</div>
 </header>
 <div class='nav_slide'><span class="glyphicon glyphicon-chevron-down" id="nav_down"></span></div>
 <div class="container-fluid" id="container">
 	<div class="row" id="container_row">
     <div class="row" id="top">
-  		<div class="col-xs-12 col-sm-6 col-md-6" id="main">
+  		<div id="teacher" class="col-xs-12 col-sm-6 col-md-6" id="main">
+        <canvas>
+          <video id="teacherVideo" autoplay></video>
+        </canvas>
+        <div id="teacher_options" class="text-center">
+          <label>Video: 
+            <div>
+              <button class="btn btn-sm btn-success" id="startButton">Start</button>
+              <button class="btn btn-sm btn-danger" id="hangupButton">Stop</button>
+            </div>
+          </label>
+          <label>Text: 
+            <div>
+              <button class="btn btn-sm btn-success" id="openText">Open</button>
+              <button class="btn btn-sm btn-danger" id="closeText">Close</button>
+            </div>
+          </label>
+          <label>Canvas: 
+            <div>
+              <button class="btn btn-sm btn-success" id="startCanvas">Start</button>
+              <button class="btn btn-sm btn-danger" id="stopCanvas">Stop</button>
+            </div>
+          </label>
+        </div>
       </div> <!-- end of main div -->
       <div class="col-xs-12 col-sm-6 col-md-6" id="users">
+        
   		</div> <!-- end of users div -->
     </div>
     <div class="row" id="bottom">
