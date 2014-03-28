@@ -20,7 +20,7 @@ var rooms = [];
 			req.session.name = name;
 
 			if (teacher.length == 0) {
-				console.log('TEACHER:', teacher)
+				console.log('TEACHER:', teacher);
 				teacher.push(name);
 				req.io.emit(
 					'setup_new_teacher',

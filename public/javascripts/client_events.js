@@ -40,20 +40,13 @@ io.on(
                     <button class='btn btn-xs btn-danger' id='stopCanvas'>Stop</button>\
                 </div>\
             </label>"
-        )
+        );
     }
 );
 
 io.on(
     'setup_new_user',
     function(data) {
-
-        // set up input text box for chat
-        console.log('set_up_user:',data.name);
-		$('#chat').append(
-            '<input type="text" class="name" id="chat_box" onchange="send_message()"/>\
-            <span class="glyphicon glyphicon-pencil"></span>'
-        );
 
         // show all users
         $.each(data.names,function(i,name){
