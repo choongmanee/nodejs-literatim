@@ -26,6 +26,7 @@ io.on(
         $.each(data.names,function(i,name){
             $('#container_row').append(
                 '<div class="col-xs-6 col-sm-4 col-md-3 col-lg-3 users" id="'+name+'">\
+                    <span class="glyphicon glyphicon-remove hideuser"></span>\
                     <h4 class="userheads">'+name.replace("_"," ")+'</h4>\
                     <div class="usertexts"></div>\
                 </div>'
@@ -33,7 +34,7 @@ io.on(
         });
 
         $('.users').show("bounce",{ times: 3 },"slow");
-        document.title('literat.im['+data.count+']');
+        document.title='literat.im(beta)[users:'+data.count+']';
     }
 );
 
@@ -43,7 +44,8 @@ io.on(
         console.log(data.name);
         $('#container_row').append(
             '<div class="col-xs-6 col-sm-4 col-md-3 col-lg-3 users" id="'+data.name+'">\
-                <h4 class="userheads">'+data.name.replace("_"," ")+'</h4></br>\
+                <span class="glyphicon glyphicon-remove hideuser"></span>\
+                <h4 class="userheads">'+data.name.replace("_"," ")+'</h4>\
                 <div class="usertexts"></div>\
             </div>'
         );
@@ -77,6 +79,6 @@ io.on(
     function(data){
         console.log(data);
         $("#"+data.name).fadeOut(1000);
-        document.title('literat.im['+data.count+']');
+        document.title='literat.im(beta)[users:'+data.count+']';
     }
 );

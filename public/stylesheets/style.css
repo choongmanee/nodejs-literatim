@@ -6,6 +6,7 @@ html {
 
 body {
 	background-color: #2C3E50;
+	font-family: 'Gochi Hand', cursive;
 }
 
 header {
@@ -14,10 +15,8 @@ header {
 	box-shadow: 5px 10px 5px #111111;
 	margin: 10px;
 	text-align: center;
-}
-
-div {
-	border: 1px solid black;
+	color: #ECF0F1;
+	border: 10px solid #ECF0F1;
 }
 
 /*ALL CLASSES*/
@@ -44,6 +43,7 @@ div {
 	display:none;
 	height: 105px;
 	vertical-align: top;
+	border: 5px solid #ECF0F1;
 }
 
 .userheads {
@@ -58,11 +58,16 @@ div {
 	height: 35px;
 	margin-top: 0px;
 	vertical-align: top;
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
 }
 
 .form-control {
 	margin-bottom: 10px;
 	display: inline-block;
+}
+
+.hideuser {
+	float: right;
 }
 
 /*ALL IDENTIFIERS*/
@@ -82,4 +87,5 @@ div {
 
 #user {
 	width: 90%;
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
 }
