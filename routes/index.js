@@ -12,7 +12,6 @@ var rooms = [];
 	app.io.route(
 		'got_a_new_user',
 		function(req){
-			// console.log(req.data);
 			var room = req.data.room;
 			req.session.room = room;
 			req.io.join(room);
@@ -28,12 +27,10 @@ var rooms = [];
 				name: name}
 			);
 
-
 			req.io.room(room).broadcast(
 				'add_newest_user',
 				{name: name}
 			);
-
 		}
 	);
 
@@ -41,7 +38,7 @@ var rooms = [];
 		'updated_text',
 		function(req){
 			console.log('the req.data is',req.data);
-			req.io.room(req.session.room).broadcast(
+			app.io.room(req.session.room).broadcast(
 				'text_update',
 				{text: req.data.message,
 				name: req.session.name}

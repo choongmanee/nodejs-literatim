@@ -83,8 +83,8 @@ video, canvas {
 	text-align: center;
 }
 
-.name {
-	width: 88%;
+#chat_box {
+	width: 97%;
 }
 
 #top {
@@ -93,4 +93,14 @@ video, canvas {
 
 #bottom {
 	height: 30%;
+}
+
+html {
+	overflow-y: hidden;
+	overflow-x: hidden;
+}
+
+#open_chat {
+	overflow: auto !important;
+	height: 300px;
 }

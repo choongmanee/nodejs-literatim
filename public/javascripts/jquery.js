@@ -1,8 +1,17 @@
 $(document).ready(function(){
 
 $('.container-fluid').css('height',window.innerHeight);
-$('.container-fluid').resize(function(){
-	$(this).css('height',window.innerHeight);
+var top = window.innerHeight *0.7;
+var bottom = window.innerHeight *0.3;
+$('#top').css('height',top+'px');
+$('#bottom').css('height',bottom+'px');
+
+$(window).resize(function(){
+	$('.container-fluid').css('height',window.innerHeight);
+	var top = window.innerHeight *0.7;
+	var bottom = window.innerHeight *0.3;
+	$('#top').css('height',top+'px');
+	$('#bottom').css('height',bottom+'px');
 });
 /////////////////
 ///// MODAL /////
