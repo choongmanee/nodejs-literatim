@@ -51,7 +51,7 @@ io.on(
         // set up input text box for chat
         console.log('set_up_user:',data.name);
 		$('#chat').append(
-            '<input type="text" class="name" id="'+data.name+'" onchange="send_message('+data.name+')"/>\
+            '<input type="text" class="name" id="chat_box" onchange="send_message()"/>\
             <span class="glyphicon glyphicon-pencil"></span>'
         );
 
@@ -82,37 +82,28 @@ io.on(
 	}
 );
 
-function send_message(name){
-    var id = name.id;
-    $('#'+id).keydown(function(e){
+function send_message(){
+    $('#chat_box').keydown(function(e){
         if (e.which == 13) {
-            io.emit(
-                'updated_text',
-                {message: $('#'+id).val()}
-            );
-            $(this).val('');
+            message = $('#chat_box').val();
+            if (message !=="") {
+                io.emit(
+                    'updated_text',
+                    {message: $('#chat_box').val()}
+                );
+                $(this).val('');
+            }
         }
     });
-    // var message = $('#'+id).val();
-    // io.emit(
-    //     'updated_text',
-    //     {message: $('#'+id).val()}
-    // );
-    // console.log('send_message[name]:',name.id);
-    // console.log('the id is:', id);
-    // console.log('this is the message:',message);
 }
 
 io.on(
 	'text_update',
 	function(data){
-		console.log('i have a problem with ',data.text);
-        $("#"+data.name).attr("data-original-title",data.text);
-        if (data.text === "") {
-            $("#"+data.name).tooltip('hide');
-        } else{
-            $("#"+data.name).tooltip('show');
-        }
+		// console.log('i have a problem with ',data.text);
+        $("#open_chat").append("<b>"+data.name+"</b>: "+data.text+"</br>");
+        var elem = document.getElementById('open_chat');
+        elem.scrollTop = elem.scrollHeight;
     }
 );
 

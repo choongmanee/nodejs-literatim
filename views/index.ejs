@@ -4,8 +4,6 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title><%=:title%></title>
-  <link rel='stylesheet' href='/stylesheets/blueprint.css' />
-  <script src="/socket.io/socket.io.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
@@ -14,6 +12,7 @@
   <script src="/javascripts/jquery.js"></script>
   <script src='/javascripts/adapter.js'></script>
   <script src="/javascripts/jquery.event.drag-2.0.min.js"></script>
+  <link rel='stylesheet' href='/stylesheets/blueprint.css' />
   <script>
     App = {}
     App.socket = io
@@ -95,6 +94,8 @@
     </div>
     <div class="row" id="bottom">
       <div class="col-xs-12 col-sm-12 col-md-12" id="chat">
+        <div id="open_chat"></div>
+        <div id="private_chat"></div>
       </div> <!-- end of chat -->
     </div>
 	</div> <!-- end of container_row div -->
