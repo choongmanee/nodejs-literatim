@@ -35,6 +35,11 @@ var rooms = [];
 				users.push(name);
 				console.log('USERS:', users);
 
+				req.io.room(room).broadcast(
+					'add_newest_user',
+					{name: name}
+				);
+				
 				req.io.emit(
 					'setup_new_user',
 					{names: users,
@@ -42,10 +47,6 @@ var rooms = [];
 					name: name}
 				);
 
-				req.io.room(room).broadcast(
-					'add_newest_user',
-					{name: name}
-				);
 			}
 			else {
 				var message = "That room is currently full";

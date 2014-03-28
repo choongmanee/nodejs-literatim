@@ -9,11 +9,11 @@
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src='/javascripts/client_events.js'></script>
   <script src="/javascripts/jquery.js"></script>
   <script src='/javascripts/adapter.js'></script>
   <script src="/javascripts/jquery.event.drag-2.0.min.js"></script>
-  <script src="/socket.io/socket.io.js"></script>
-  <script src='/javascripts/client_events.js'></script>
   <script>
     App = {}
     App.socket = io
@@ -86,24 +86,7 @@
           <video id="teacherVideo" autoplay></video>
         </canvas>
         <div id="teacher_options" class="text-center">
-          <label>Video: 
-            <div>
-              <button class="btn btn-xs btn-success" id="startButton">Start</button>
-              <button class="btn btn-xs btn-danger" id="hangupButton">Stop</button>
-            </div>
-          </label>
-          <label>Text: 
-            <div>
-              <button class="btn btn-xs btn-success" id="openText">Open</button>
-              <button class="btn btn-xs btn-danger" id="closeText">Close</button>
-            </div>
-          </label>
-          <label>Canvas: 
-            <div>
-              <button class="btn btn-xs btn-success" id="startCanvas">Start</button>
-              <button class="btn btn-xs btn-danger" id="stopCanvas">Stop</button>
-            </div>
-          </label>
+          
         </div>
       </div> <!-- end of main div -->
       <div class="col-xs-12 col-sm-6 col-md-6" id="users">

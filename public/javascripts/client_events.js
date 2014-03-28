@@ -20,25 +20,25 @@ var welcome = function() {
 io.on(
     'setup_new_teacher',
     function(data) {
-        console.log('setup_new_teach:', data.name);
-        $('#teacher_options').append("
-            <label>Video: 
-                <div>
-                    <button class='btn btn-xs btn-success' id='startButton'>Start</button>
-                    <button class='btn btn-xs btn-danger' id='hangupButton'>Stop</button>
-                </div>
-            </label>
-            <label>Text: 
-                <div>
-                    <button class='btn btn-xs btn-success' id='openText'>Open</button>
-                    <button class='btn btn-xs btn-danger' id='closeText'>Close</button>
-                </div>
-            </label>
-            <label>Canvas: 
-                <div>
-                    <button class='btn btn-xs btn-success' id='startCanvas'>Start</button>
-                    <button class='btn btn-xs btn-danger' id='stopCanvas'>Stop</button>
-                </div>
+        console.log('setup_new_teacher:', data.name);
+        $('#teacher_options').append(
+            "<label>Video:\
+                <div>\
+                    <button class='btn btn-xs btn-success' id='startButton'>Start</button>\
+                    <button class='btn btn-xs btn-danger' id='hangupButton'>Stop</button>\
+                </div>\
+            </label>\
+            <label>Text: \
+                <div>\
+                    <button class='btn btn-xs btn-success' id='openText'>Open</button>\
+                    <button class='btn btn-xs btn-danger' id='closeText'>Close</button>\
+                </div>\
+            </label>\
+            <label>Canvas: \
+                <div>\
+                    <button class='btn btn-xs btn-success' id='startCanvas'>Start</button>\
+                    <button class='btn btn-xs btn-danger' id='stopCanvas'>Stop</button>\
+                </div>\
             </label>"
         )
     }
@@ -122,38 +122,3 @@ io.on(
         $("#"+data.name+"").fadeOut(1000);
     }
 );
-
-App = {};
-App.socket = io;
-
-// Draw Function
-App.draw = function(data) {
-    if (data.type == "dragstart") {
-        App.ctx.beginPath();
-        App.ctx.moveTo(data.x,data.y);
-    } else if (data.type == "drag") {
-        App.ctx.lineTo(data.x,data.y);
-        App.ctx.stroke();
-    } else {
-        App.ctx.stroke();
-        App.ctx.closePath();
-    }
-};
-
-// Draw from other sockets
-App.socket.on('draw', App.draw) ;
-
-// Bind click and drag events to drawing and sockets.
-$(function() {
-    App.ctx = $('canvas')[0].getContext("2d");
-    $('canvas').on('drag dragstart dragend', function(e) {
-        offset = $(this).offset();
-        data = {
-            x: (e.clientX - offset.left),
-            y: (e.clientY - offset.top),
-            type: e.handleObj.type
-        };
-        App.draw(data); // Draw yourself.
-        App.socket.emit('drawClick', data); // Broadcast draw.
-    });
-});
