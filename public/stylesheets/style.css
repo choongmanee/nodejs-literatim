@@ -1,29 +1,85 @@
+/*ALL TAGS*/
+
+html {
+	overflow-x: hidden;
+}
+
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+	background-color: #2C3E50;
 }
 
-a {
-  color: #00B7FF;
+header {
+	background-color: #E74C3C;
+	border-radius: 5px;
+	box-shadow: 5px 10px 5px #111111;
+	margin: 10px;
+	text-align: center;
 }
 
-.chat {
+div {
 	border: 1px solid black;
-	width: 25%;
-	display: inline-block;
+}
+
+/*ALL CLASSES*/
+
+.modal-content {
+	padding: 15px;
+	background-color: #01B29E;
+}
+
+.glyphicon {
+	font-size: 24px;
+	top: 5px;
+}
+
+.glyphicon-ok {
+	color: green;
+}
+
+.users {
+	border-radius: 5px;
+	background-color: rgba(236,240,241,.7);
+	box-shadow: 3px 6px 3px #111111;
+	float: left;
+	display:none;
+	height: 105px;
 	vertical-align: top;
 }
 
-#container{
-	padding: 10px;
-	border: 1px solid black;
+.userheads {
+	color: black;
+	font-weight: bolder;
+	border-bottom: 1px solid gray;
 }
 
-span {
+.usertexts {
+	max-height: 102px;
+	display: inline-block;
+	height: 35px;
+	margin-top: 0px;
+	vertical-align: top;
+}
+
+.form-control {
+	margin-bottom: 10px;
+	display: inline-block;
+}
+
+/*ALL IDENTIFIERS*/
+
+/*#container {
+	height: 1000px;
+}*/
+
+#main_row {
+	height: 100%;
+}
+
+#start {
+	width: 30%;
 	font-weight: bold;
 }
 
-textarea {
-	box-sizing:border-box;
-	width: 99%;
+#user {
+	width: 90%;
 }

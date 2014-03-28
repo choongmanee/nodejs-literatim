@@ -1,16 +1,13 @@
 io = io.connect();
 
 var welcome = function() {
-    var room = $('#room').val();
     var username = $('#user').val();
-    console.log('Joining room:',room);
     console.log('Username:',username);
 
-    if (room !== "") {
+    if (username !== "") {
         io.emit(
             'got_a_new_user',
-            {name: username,
-            room: room}
+            {name: username}
         );
     } else {
         location.reload();
@@ -18,91 +15,68 @@ var welcome = function() {
 };
 
 io.on(
-    'setup_new_teacher',
-    function(data) {
-        console.log('setup_new_teacher:', data.name);
-        $('#teacher_options').append(
-            "<label>Video:\
-                <div>\
-                    <button class='btn btn-xs btn-success' id='startButton'>Start</button>\
-                    <button class='btn btn-xs btn-danger' id='hangupButton'>Stop</button>\
-                </div>\
-            </label>\
-            <label>Text: \
-                <div>\
-                    <button class='btn btn-xs btn-success' id='openText'>Open</button>\
-                    <button class='btn btn-xs btn-danger' id='closeText'>Close</button>\
-                </div>\
-            </label>\
-            <label>Canvas: \
-                <div>\
-                    <button class='btn btn-xs btn-success' id='startCanvas'>Start</button>\
-                    <button class='btn btn-xs btn-danger' id='stopCanvas'>Stop</button>\
-                </div>\
-            </label>"
-        );
-    }
-);
-
-io.on(
     'setup_new_user',
     function(data) {
 
+        // set up new user
+        $('#first_user').text(data.name.replace("_"," "));
+        $('#first_user').parent().attr('id',data.name);
+
         // show all users
         $.each(data.names,function(i,name){
-            $('#users').append(
-                '<div class="col-xs-12 col-sm-6 col-md-6 user">\
-                    <span>'+name.replace("_"," ")+'</span></br>\
-                    <video autoplay></video>\
+            $('#container_row').append(
+                '<div class="col-xs-6 col-sm-4 col-md-3 col-lg-3 users" id="'+name+'">\
+                    <h4 class="userheads">'+name.replace("_"," ")+'</h4>\
+                    <div class="usertexts"></div>\
                 </div>'
             );
         });
 
-        document.title = 'literat.im[Room: '+data.room+']';
-	}
+        $('.users').show("bounce",{ times: 3 },"slow");
+        document.title('literat.im['+data.count+']');
+    }
 );
 
 io.on(
-	'add_newest_user',
-	function(data) {
-		console.log(data.name);
-		$('#users').append(
-			'<div class="col-xs-12 col-sm-6 col-md-6 user">\
-                <span>'+data.name.replace("_"," ")+'</span></br>\
-                <video autoplay></video>\
+    'add_newest_user',
+    function(data) {
+        console.log(data.name);
+        $('#container_row').append(
+            '<div class="col-xs-6 col-sm-4 col-md-3 col-lg-3 users" id="'+data.name+'">\
+                <h4 class="userheads">'+data.name.replace("_"," ")+'</h4></br>\
+                <div class="usertexts"></div>\
             </div>'
         );
-	}
+        $('#'+data.name).show("bounce",{ times: 3 },"slow");
+    }
 );
 
 function send_message(){
-    $('#chat_box').keydown(function(e){
+    $('#message').keydown(function(e){
+        message = $('#message').val();
+        io.emit(
+            'updated_text',
+            {message: $('#message').val()}
+        );
         if (e.which == 13) {
-            message = $('#chat_box').val();
-            if (message !=="") {
-                io.emit(
-                    'updated_text',
-                    {message: $('#chat_box').val()}
-                );
-                $(this).val('');
-            }
+            $(this).val('');
         }
     });
 }
 
 io.on(
-	'text_update',
-	function(data){
-		// console.log('i have a problem with ',data.text);
-        $("#open_chat").append("<b>"+data.name+"</b>: "+data.text+"</br>");
-        var elem = document.getElementById('open_chat');
-        elem.scrollTop = elem.scrollHeight;
+    'text_update',
+    function(data){
+        // console.log('i have a problem with ',data.text);
+        $("#"+data.name).find('.usertexts').text(data.text);
     }
 );
 
 io.on(
     'remove_user',
     function(data){
-        $("#"+data.name+"").fadeOut(1000);
+        console.log(data);
+        $("#"+data.name).fadeOut(1000);
+        document.title('literat.im['+data.count+']');
     }
 );

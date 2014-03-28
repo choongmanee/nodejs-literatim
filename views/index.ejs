@@ -3,52 +3,16 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title><%=:title%></title>
+	<title>literat.im(beta)</title>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
   <script src="/socket.io/socket.io.js"></script>
-  <script src='/javascripts/client_events.js'></script>
+  <script src="/javascripts/fittext.js"></script>
   <script src="/javascripts/jquery.js"></script>
-  <script src='/javascripts/adapter.js'></script>
-  <script src="/javascripts/jquery.event.drag-2.0.min.js"></script>
-  <link rel='stylesheet' href='/stylesheets/blueprint.css' />
-  <script>
-    App = {}
-    App.socket = io
-
-    // Draw Function
-    App.draw = function(data) {
-        if (data.type == "dragstart") {
-            App.ctx.beginPath()
-            App.ctx.moveTo(data.x,data.y)
-        } else if (data.type == "drag") {
-            App.ctx.lineTo(data.x,data.y)
-            App.ctx.stroke()
-        } else {
-            App.ctx.stroke()
-            App.ctx.closePath()
-        }
-    }
-
-    // Draw from other sockets
-    App.socket.on('draw', App.draw) 
-
-    // Bind click and drag events to drawing and sockets.
-    $(function() {
-        App.ctx = $('canvas')[0].getContext("2d")
-        $('canvas').on('drag dragstart dragend', function(e) {
-            offset = $(this).offset()
-            data = {
-                x: (e.clientX - offset.left), 
-                y: (e.clientY - offset.top),
-                type: e.handleObj.type
-            }
-            App.draw(data) // Draw yourself.
-            App.socket.emit('drawClick', data) // Broadcast draw.
-        })
-    })         
-  </script>
+  <script src='/javascripts/client_events.js'></script>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
 </head>
 <body>
 <div class="modal fade bs-example-modal-md" tabindex="-1" role="dialog" aria-labelledby="myMediumModalLabel" aria-hidden="true" id="welcome" data-backdrop="static" data-keyboard="false">
@@ -56,13 +20,9 @@
     <div class="modal-content">
   		<h2>Welcome to literat.im!</h2>
   		<h4>Let's get started</h4>
-		  <p class="welcome_info">
-  			<span class="glyphicon glyphicon-search"></span>
-  			<input type="text" name="room" id="room" placeholder="Search or create a room" autofocus required>
-		  </p>
   		<p class="welcome_info">
   			<span class="glyphicon glyphicon-user"></span>
-  			<input type="text" name="user" id="user" placeholder="Enter Name"/ required>
+  			<input type="text" name="user" id="user" placeholder="name" class="form-control">
   			<span class="glyphicon glyphicon-ok"></span>
   		</p>
   		<button class="btn btn-info" id="start" data-dismiss="modal" data-backdrop="false" onclick="welcome()">Start</button>
@@ -71,38 +31,16 @@
 </div> <!-- end of modal -->
 
 <header>
-	<div id="header_top"></div>
-  	<div class="nav_slide">
-  		<span class="glyphicon glyphicon-chevron-up" id="nav_up"></span>
-  	</div>
-</header>
-<div class='nav_slide'><span class="glyphicon glyphicon-chevron-down" id="nav_down"></span></div>
+  <h3 class="fittext">literat.im</h3>
+</header> <!-- end of header -->
+
 <div class="container-fluid" id="container">
 	<div class="row" id="container_row">
-    <div class="row" id="top">
-  		<div id="teacher" class="col-xs-12 col-sm-6 col-md-6" id="main">
-        <canvas>
-          <video id="teacherVideo" autoplay></video>
-        </canvas>
-        <div id="teacher_options" class="text-center">
-          
-        </div>
-      </div> <!-- end of main div -->
-      <div class="col-xs-12 col-sm-6 col-md-6" id="users">
-        
-  		</div> <!-- end of users div -->
-    </div>
-    <div class="row" id="bottom">
-      <div class="col-xs-12 col-sm-12 col-md-12" id="chat">
-        <div id="open_chat"></div>
-        <div id="private_chat"></div>
-        <input type="text" class="name" id="chat_box" onchange="send_message()"/>
-        <span class="glyphicon glyphicon-pencil"></span>
-      </div> <!-- end of chat -->
+    <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3 users" id="'+data.name+'">
+      <h4 class="userheads" id="first_user"></h4>
+      <input type="text" placeholder="..." class="form-control" id="message" maxlength="120" onkeypress="send_message()"/>
     </div>
 	</div> <!-- end of container_row div -->
 </div> <!-- end of container div -->
-<script src="/javascripts/video.js"></script>
-
 </body>
 </html>

@@ -1,18 +1,5 @@
 $(document).ready(function(){
 
-$('.container-fluid').css('height',window.innerHeight);
-var top = window.innerHeight *0.7;
-var bottom = window.innerHeight *0.3;
-$('#top').css('height',top+'px');
-$('#bottom').css('height',bottom+'px');
-
-$(window).resize(function(){
-	$('.container-fluid').css('height',window.innerHeight);
-	var top = window.innerHeight *0.7;
-	var bottom = window.innerHeight *0.3;
-	$('#top').css('height',top+'px');
-	$('#bottom').css('height',bottom+'px');
-});
 /////////////////
 ///// MODAL /////
 /////////////////
@@ -32,22 +19,21 @@ $('.modal-content').keydown(function(e){
 
 ///// END OF MODAL /////
 
-///////////////////
-///// NAV BAR /////
-///////////////////
+//////////////////////
+///// FITTEXT.JS /////
+//////////////////////
 
-$('header').hide();
-$('#nav_down').click(function(){
-	$(this).hide();
-	$('header').slideDown();
-});
+$('.fittext').fitText();
 
-$('#nav_up').click(function(){
-	$('header').slideUp('fast');
-	$('#nav_down').slideDown('slow');
-});
+///// END OF FITTEXT.JS /////
 
-///// END OF NAV BAR ////
+//////////////////////
+///// SORT USERS /////
+//////////////////////
+
+$("#container_row").sortable();
+
+///// END OF SORT USERS /////
 
 
 });
