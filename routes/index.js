@@ -20,8 +20,9 @@ var rooms = [];
 			req.session.name = name;
 
 			if (teacher.length == 0) {
-				console.log('TEACHER:', teacher);
 				teacher.push(name);
+				console.log('TEACHER:', teacher);
+
 				req.io.emit(
 					'setup_new_teacher',
 					{name: teacher,
@@ -37,14 +38,13 @@ var rooms = [];
 					'add_newest_user',
 					{name: name}
 				);
-				
+
 				req.io.emit(
 					'setup_new_user',
 					{names: users,
 					room: room,
 					name: name}
 				);
-
 			}
 			else {
 				var message = "That room is currently full";
@@ -71,10 +71,14 @@ var rooms = [];
 	app.io.route('disconnect', function(req){
 		console.log('the current user is',req.session.name);
 		var index = users.indexOf(req.session.name);
+		var user = req.session.name;
 		console.log('the index is:',index);
 		console.log('the length of the array is ',users.length);
 		if (users.length>0) {
 			users.splice(index,1);
+		}
+		if (teacher.indexOf(user) == 0) {
+			teacher.splice(0, 1);
 		}
 		console.log('array users is',users);
 		app.io.room(req.session.room).broadcast(
