@@ -6,7 +6,7 @@ var welcome = function() {
     console.log('Joining room:',room);
     console.log('Username:',username);
 
-    if (room !=="") {
+    if (room !== "") {
         io.emit(
             'got_a_new_user',
             {name: username,
@@ -16,6 +16,33 @@ var welcome = function() {
         location.reload();
     }
 };
+
+io.on(
+    'setup_new_teacher',
+    function(data) {
+        console.log('setup_new_teach:', data.name);
+        $('#teacher_options').append("
+            <label>Video: 
+                <div>
+                    <button class='btn btn-xs btn-success' id='startButton'>Start</button>
+                    <button class='btn btn-xs btn-danger' id='hangupButton'>Stop</button>
+                </div>
+            </label>
+            <label>Text: 
+                <div>
+                    <button class='btn btn-xs btn-success' id='openText'>Open</button>
+                    <button class='btn btn-xs btn-danger' id='closeText'>Close</button>
+                </div>
+            </label>
+            <label>Canvas: 
+                <div>
+                    <button class='btn btn-xs btn-success' id='startCanvas'>Start</button>
+                    <button class='btn btn-xs btn-danger' id='stopCanvas'>Stop</button>
+                </div>
+            </label>"
+        )
+    }
+);
 
 io.on(
     'setup_new_user',

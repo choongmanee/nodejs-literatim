@@ -6,6 +6,7 @@ module.exports = function Routes (app) {
 		);
 	});
 
+var teacher = [];
 var users = [];
 var rooms = [];
 
@@ -18,22 +19,41 @@ var rooms = [];
 			req.io.join(room);
 			var name = req.data.name.replace(" ","_");
 			req.session.name = name;
-			users.push(name);
-			console.log('USERS:',users);
 
-			req.io.emit(
-				'setup_new_user',
-				{names: users,
-				room: room,
-				name: name}
-			);
+			if (teacher.length == 0) {
+				console.log('TEACHER:', teacher)
+				teacher.push(name);
 
+				req.io.emit(
+					'setup_new_teacher',
+					{name: teacher,
+					room: room,
+					name: name}
+				);
+			}
+			else if (users.length <= 6) {
+				users.push(name);
+				console.log('USERS:', users);
 
-			req.io.room(room).broadcast(
-				'add_newest_user',
-				{name: name}
-			);
+				req.io.emit(
+					'setup_new_user',
+					{names: users,
+					room: room,
+					name: name}
+				);
 
+				req.io.room(room).broadcast(
+					'add_newest_user',
+					{name: name}
+				);
+			}
+			else {
+				var message = "That room is currently full";
+				req.io.emit(
+					'full_room',
+					{message: message}
+				);
+			}
 		}
 	);
 
