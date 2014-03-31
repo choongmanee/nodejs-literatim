@@ -35,10 +35,15 @@ $("#container_row").sortable();
 
 ///// END OF SORT USERS /////
 
+////////////////////////
+///// CLOSE WINDOW /////
+////////////////////////
+
 $(document).on('click','.hideuser',function(){
 	console.log('x marks the spot');
 	$(this).parent().slideUp();
 });
 
+///// END OF CLOSE WINDOW /////
 });
 

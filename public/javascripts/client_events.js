@@ -41,7 +41,7 @@ io.on(
 io.on(
     'add_newest_user',
     function(data) {
-        console.log(data.name);
+        console.log("has joined:",data.name);
         $('#container_row').append(
             '<div class="col-xs-6 col-sm-4 col-md-3 col-lg-3 users" id="'+data.name+'">\
                 <span class="glyphicon glyphicon-remove hideuser"></span>\
@@ -54,14 +54,14 @@ io.on(
 );
 
 function send_message(){
-    $('#message').keydown(function(e){
         message = $('#message').val();
         io.emit(
             'updated_text',
-            {message: $('#message').val()}
+            {message: message}
         );
+    $('#message').keydown(function(e){
         if (e.which == 13) {
-            $(this).val('');
+            $('#message').val('');
         }
     });
 }
