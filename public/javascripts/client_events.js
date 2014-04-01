@@ -16,7 +16,7 @@ var welcome = function() {
         alert('Please enter a user name');
         location.reload();
     }
-    $('header').append("Room Name:",room);
+    $('header').append("<h3 id='roomheader'>Room Name:"+room+"</h3>");
 };
 
 io.on(
@@ -31,7 +31,6 @@ io.on(
         $.each(data.names,function(i,name){
             $('#container_row').append(
                 '<div class="col-xs-6 col-sm-4 col-md-3 col-lg-3 users" id="'+name+'">\
-                    <span class="glyphicon glyphicon-remove hideuser"></span>\
                     <h4 class="userheads">'+name.replace("_"," ")+'</h4>\
                     <div class="usertexts"></div>\
                 </div>'
@@ -48,7 +47,6 @@ io.on(
         console.log("has joined:",data.name);
         $('#container_row').append(
             '<div class="col-xs-6 col-sm-4 col-md-3 col-lg-3 users" id="'+data.name+'">\
-                <span class="glyphicon glyphicon-remove hideuser"></span>\
                 <h4 class="userheads">'+data.name.replace("_"," ")+'</h4>\
                 <div class="usertexts"></div>\
             </div>'

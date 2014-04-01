@@ -89,3 +89,14 @@ header {
 	width: 90%;
 	font-family: "Trebuchet MS", Helvetica, sans-serif;
 }
+
+#roomheader {
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
+	text-align: left;
+	margin-top: 0px;
+	margin-left: 5px;
+}
+
+h2 {
+	display: inline-block;
+}

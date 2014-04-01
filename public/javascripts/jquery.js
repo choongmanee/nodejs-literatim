@@ -23,7 +23,7 @@ $('.modal-content').keydown(function(e){
 ///// FITTEXT.JS /////
 //////////////////////
 
-$('.fittext').fitText();
+$('.fittext').fitText(1.5);
 
 ///// END OF FITTEXT.JS /////
 
@@ -39,10 +39,10 @@ $("#container_row").sortable();
 ///// CLOSE WINDOW /////
 ////////////////////////
 
-$(document).on('click','.hideuser',function(){
-	console.log('x marks the spot');
-	$(this).parent().slideUp();
-});
+// $(document).on('click','.hideuser',function(){
+// 	console.log('x marks the spot');
+// 	$(this).parent().slideUp();
+// });
 
 ///// END OF CLOSE WINDOW /////
 });
