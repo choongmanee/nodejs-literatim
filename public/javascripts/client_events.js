@@ -2,16 +2,21 @@ io = io.connect();
 
 var welcome = function() {
     var username = $('#user').val();
-    console.log('Username:',username);
+    var room = $('#roomname').val();
+    console.log('username:',username);
+    console.log('room:',room);
 
     if (username !== "") {
         io.emit(
             'got_a_new_user',
-            {name: username}
+            {name: username,
+            roomname: room}
         );
     } else {
+        alert('Please enter a user name');
         location.reload();
     }
+    $('header').append("Room Name:",room);
 };
 
 io.on(
@@ -34,7 +39,6 @@ io.on(
         });
 
         $('.users').show("bounce",{ times: 3 },"slow");
-        document.title='literat.im(beta)[users:'+data.count+']';
     }
 );
 
@@ -79,6 +83,5 @@ io.on(
     function(data){
         console.log(data);
         $("#"+data.name).fadeOut(1000);
-        document.title='literat.im(beta)[users:'+data.count+']';
     }
 );

@@ -85,7 +85,7 @@ header {
 	font-weight: bold;
 }
 
-#user {
+#user, #roomname {
 	width: 90%;
 	font-family: "Trebuchet MS", Helvetica, sans-serif;
 }

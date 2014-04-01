@@ -6,37 +6,61 @@ module.exports = function Routes (app) {
 	});
 
 var users = [];
+var roomname;
 
 	app.io.route(
 		'got_a_new_user',
 		function(req){
-			var name = req.data.name.replace(" ","_");
-			req.session.name = name;
+			var username = req.data.name.replace(" ","_");
 
+			///// HANDLER FOR ROOM CHANGES
+			if (roomname!==req.data.roomname) {
+				users=[];
+				list_length = app.io.sockets.clients(req.data.roomname).length;
+				for ( i = 0; i < list_length; i++) {
+				users.push(app.io.sockets.clients(req.data.roomname)[i].username);
+				}
+			}
+			///// END HANDLER FOR ROOM CHANGES
 
-			console.log('USERS:', users);
+			///// HANDLER FOR NEW USER ROOM NAME ASSIGNMENT
+			roomname = req.data.roomname;
+			req.io.join(roomname); // joins client to a specific roomname
+			req.session.roomname = roomname;
+			///// END HANDER FOR NEW USER ROOM NAME ASSIGNMENT
 
-			req.io.broadcast(
+			///// LIST OF ALL CLIENTS PER ROOM
+			var client_list = app.io.sockets.clients(roomname);
+			list_length = client_list.length;
+			///// END LIST
+
+			req.socket.username = username; // sets the client's object attribute "username" as entered by client
+			// console.log('app\n',app.io.sockets.sockets[socket.id].emit());
+
+			req.io.room(roomname).broadcast(
 				'add_newest_user',
-				{name: name,
-				count: users.length+1}
+				{name: username}
 			);
 
 			req.io.emit(
 				'setup_new_user',
 				{names: users,
-				name: name,
-				count: users.length+1}
+				name: username}
 			);
-			users.push(name);
+			users = [];
+			for ( i = 0; i < list_length; i++) {
+				users.push(client_list[i].username);
+			}
+
+			req.session.name = username; // set the client's session's name
+			req.session.roomname = roomname; // sets the client's session roomname
 		}
 	);
 
 	app.io.route(
 		'updated_text',
 		function(req){
-			console.log('the req.data is',req.data);
-			req.io.broadcast(
+			req.io.room(req.session.roomname).broadcast(
 				'text_update',
 				{text: req.data.message,
 				name: req.session.name}
@@ -45,18 +69,20 @@ var users = [];
 	);
 
 	app.io.route('disconnect', function(req){
-		console.log('the current user is',req.session.name);
-		var index = users.indexOf(req.session.name);
+		var client_list = app.io.sockets.clients(req.session.roomname);
+		var list_length = client_list.length;
+		users=[];
+		for (var i = 0; i < list_length; i++) {
+				users.push(client_list[i].username);
+			}
 		var user = req.session.name;
-		console.log('the index is:',index);
-		console.log('the length of the array is ',users.length);
-		if (users.length>0) {
-			users.splice(index,1);
+		remove_index = users.indexOf(user);
+		if (remove_index > -1) {
+			users.splice(remove_index, 1);
 		}
-		console.log('array users is',users);
 		console.log('disconnected:', user);
 		
-		app.io.broadcast(
+		app.io.room(req.session.roomname).broadcast(
 			'remove_user',
 			{name: user,
 			count:users.length}
